@@ -3,49 +3,33 @@ module SmartId::Api
     class ConfirmationPoller
       BASE_URI = "session/"
 
-      def self.confirm(session_id)
-        new(session_id).call
+      def self.confirm(session_id, authentication_hash)
+        new(session_id, authentication_hash).call
+
       end
 
-      def initialize(session_id)
+      def initialize(session_id, authentication_hash)
         @session_id = session_id
+        @authentication_hash = authentication_hash
       end
 
       def call
-        begin
-          request = RestClient::Request.execute(
-            method: :get, 
-            url: api_url,
-            headers: {  
-              accept: :json,
-              params: { timeoutMs: SmartId.poller_timeout_seconds * 1000} 
-            },
-            timeout: SmartId.poller_timeout_seconds + 1 # Add an extra second before request times out
-          )
-          
-          response = ConfirmationResponse.new(JSON.parse(request.body))
-          
-          # repeat request if confirmation is still running
-          if response.confirmation_running?
-            call
-          else
-            response
-          end
-          
-        rescue RestClient::RequestFailed => e
-          case e.http_code
-          when 471
-            raise SmartId::IncorrectAccountLevelError
-          else
-            raise SmartId::ConnectionError
-          end
+        params = { timeoutMs: SmartId.poller_timeout_seconds * 1000 }
+        uri = BASE_URI + @session_id
+
+        raw_response = SmartId::Api::Request.execute(method: :get, uri: uri, params: params)
+        
+        response = SmartId::Api::ConfirmationResponse.new(
+          JSON.parse(raw_response.body),
+          @authentication_hash.hash_data
+        )
+
+        # repeat request if confirmation is still running
+        if response.confirmation_running?
+          call
+        else
+          response
         end
-      end
-
-      private
-
-      def api_url
-        SmartId.smart_id_base_url + BASE_URI + @session_id
       end
     end
   end

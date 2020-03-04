@@ -21,8 +21,8 @@ module SmartId::Api
 
       private
 
-      def api_url
-        SmartId.smart_id_base_url + "#{BASE_URI}/#{@country}/#{@identity_number}"
+      def api_uri
+        "#{BASE_URI}/#{@country}/#{@identity_number}"
       end
     end
   end

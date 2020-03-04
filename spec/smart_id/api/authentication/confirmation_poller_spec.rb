@@ -2,8 +2,15 @@ RSpec.describe SmartId::Api::Authentication::ConfirmationPoller do
   describe "#call" do
     context "with good confirmation" do
       let(:user_data) { "PNOEE-10101010005-Z1B2-Q" }
-      let(:authentication_response) { SmartId::Api::Authentication::Document.authenticate(document_number: user_data) }
-      subject { described_class.new(authentication_response.session_id) }
+      let(:auth_hash) { SmartId::Utils::AuthenticationHash.new }
+      let(:authentication_response) do
+        SmartId::Api::Authentication::Document.authenticate(
+           document_number: user_data,
+          authentication_hash: auth_hash
+        )
+      end
+      
+      subject { described_class.new(authentication_response.session_id, auth_hash) }
 
       it "gets session confirmation from the user" do
         response = subject.call

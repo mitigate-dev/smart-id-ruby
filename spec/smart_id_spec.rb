@@ -16,6 +16,7 @@ RSpec.describe SmartId do
         config.relying_party_uuid = relying_party_uuid
         config.relying_party_name = relying_party_name
         config.default_certificate_level = default_certificate_level
+        config.environment = "demo"
       end
     end
 

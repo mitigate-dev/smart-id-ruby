@@ -1,18 +1,21 @@
 require "smart_id/version"
 require "smart_id/utils/authentication_hash"
+require "smart_id/utils/certificate_validator"
 require "smart_id/utils/verification_code_calculator"
+require "smart_id/api/request"
 require "smart_id/api/response"
 require "smart_id/api/confirmation_response"
 require "smart_id/api/authentication/identity_number"
 require "smart_id/api/authentication/document"
 require "smart_id/api/authentication/confirmation_poller"
+require "smart_id/authentication_certificate/certificate"
+require "smart_id/authentication_certificate/content"
 
 module SmartId
+    @@environment = "DEMO" # possible options are demo and production
     @@relying_party_uuid = nil
     @@relying_party_name = nil
-    @@default_certificate_level = "QUALIFIED" 
-    @@host_url = nil
-    @@smart_id_base_url = "https://sid.demo.sk.ee/smart-id-rp/v1/"
+    @@default_certificate_level = "ADVANCED" # possible values are "ADVANCED", "QUALIFIED" 
     @@poller_timeout_seconds = 10
 
   def self.configure(&block)
@@ -43,19 +46,19 @@ module SmartId
     @@default_certificate_level
   end
 
-  def self.smart_id_base_url=(value)
-    @@smart_id_base_url = value
-  end
-
-  def self.smart_id_base_url
-    @@smart_id_base_url
-  end
-
   def self.poller_timeout_seconds=(value)
     @@poller_timeout_seconds = value
   end
 
   def self.poller_timeout_seconds
     @@poller_timeout_seconds
+  end
+
+  def self.environment=(value)
+    @@environment = value.upcase
+  end
+
+  def self.environment
+    @@environment
   end
 end

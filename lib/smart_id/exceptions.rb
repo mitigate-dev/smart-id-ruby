@@ -3,6 +3,10 @@ module SmartId
   class InvalidAuthTypeError < Exception; end
   class InvalidParamsError < Exception; end
   class ConnectionError < Exception; end
+  class SSLCertificateNotVerified < Exception; end
+  class InvalidResponseCertificate < Exception; end
+  class InvalidResponseSignature < Exception; end
+
   
   class IncorrectAccountLevelError < Exception
     def message

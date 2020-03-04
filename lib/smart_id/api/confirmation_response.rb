@@ -5,12 +5,9 @@ module SmartId::Api
 
     attr_reader :body
     
-    def initialize(response_body)
+    def initialize(response_body, hashed_data)
       @body = response_body
-    end
-
-    def state
-      @body["state"]
+      validate!(hashed_data)
     end
 
     def confirmation_complete?
@@ -19,6 +16,10 @@ module SmartId::Api
 
     def confirmation_running?
       state == RUNNING_STATE
+    end
+
+    def state
+      @body["state"]
     end
 
     def end_result
@@ -34,7 +35,7 @@ module SmartId::Api
     end
 
     def certificate
-      @body.dig("cert", "value")
+      @certificate ||= SmartId::AuthenticationCertificate::Certificate.new(@body.dig("cert", "value"))
     end
 
     def signature_algorithm
@@ -47,6 +48,12 @@ module SmartId::Api
 
     def ignored_properties
       @body["ignoredProperties"]
+    end
+
+    private
+    
+    def validate!(hashed_data)
+      SmartId::Utils::CertificateValidator.validate!(hashed_data, signature, certificate)
     end
   end
 end

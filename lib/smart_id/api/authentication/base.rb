@@ -14,7 +14,7 @@ module SmartId::Api
       end
 
       def initialize(**opts)
-        @authentication_hash = SmartId::Utils::AuthenticationHash.new(opts[:hashable_data])
+        @authentication_hash = opts[:authentication_hash]
         @display_text = opts[:display_text]
         @nonce = opts[:nonce]
         @certificate_level = opts[:certificate_level]
@@ -22,23 +22,8 @@ module SmartId::Api
 
 
       def call
-        begin
-          request = RestClient::Request.execute(
-            method: :post, 
-            url: api_url,
-            payload: JSON.generate(request_params),
-            headers: { content_type: :json, accept: :json }
-          )
-          SmartId::Api::Response.new(JSON.parse(request.body), @authentication_hash)
-          
-        rescue RestClient::RequestFailed => e
-          case e.http_code
-          when 471
-            raise SmartId::IncorrectAccountLevelError
-          else
-            raise SmartId::ConnectionError
-          end
-        end
+        response = SmartId::Api::Request.execute(method: :post, uri: api_uri, params: request_params)
+        SmartId::Api::Response.new(JSON.parse(response.body), authentication_hash)
       end
 
       private
@@ -48,7 +33,7 @@ module SmartId::Api
           relyingPartyUUID: SmartId.relying_party_uuid,
           relyingPartyName: SmartId.relying_party_name,
           certificateLevel: @certificate_level || SmartId.default_certificate_level,
-          hash: @authentication_hash.calculate_base64_digest,
+          hash: authentication_hash.calculate_base64_digest,
           hashType: "SHA256"
         }
 
@@ -63,7 +48,7 @@ module SmartId::Api
         params
       end
 
-      def api_url
+      def api_uri
         raise NotImplementedError
       end
     end

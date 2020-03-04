@@ -8,6 +8,7 @@ RSpec.configure do |config|
       config.relying_party_uuid = "00000000-0000-0000-0000-000000000000"
       config.relying_party_name = "DEMO"
       config.default_certificate_level = "QUALIFIED"
+      config.environment = "demo"
     end
   end
   

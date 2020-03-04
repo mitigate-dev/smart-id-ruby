@@ -3,7 +3,8 @@
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/smart_id`. To experiment with that code, run `bin/console` for an interactive prompt.
 
 TODO: Delete this and the text above, and describe your gem
-
+## TODO
+    Verify that the X.509 certificate of the HTTPS endpoint is valid (not expired, signed by trusted CA and not revoked) These checks are incorporated into:
 ## Installation
 
 Add this line to your application's Gemfile:
