@@ -24,8 +24,16 @@ module SmartId::Api
         case e.http_code
         when 471
           raise SmartId::IncorrectAccountLevelError
+        when 403
+          raise SmartId::InvalidPermissionsError
+        when 404
+          raise SmartId::UserNotFoundError
+        when 480
+          raise SmartId::OutdatedApiError
+        when 580
+          raise SmartId::SystemUnderMaintenanceError
         else
-          raise SmartId::ConnectionError
+          raise SmartId::ConnectionError.new(e)
         end
       rescue RestClient::SSLCertificateNotVerified
         raise SmartId::SSLCertificateNotVerified

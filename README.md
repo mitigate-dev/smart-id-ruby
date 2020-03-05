@@ -192,12 +192,16 @@ SmartId::Api::Authentication::IdentityNumber.authenticate(
 All exceptions inherit from `SmartId::Exception`
 
 * `SmartId::InvalidParamsError` - either country or identity_number were not provided when trying to authenticate with identity number
-* `SmartId::ConnectionError` - authentication/confirmation request failed
+* `SmartId::ConnectionError` - authentication/confirmation request failed, when rescuing see `e.original_error` for more details
+* `SmartId::NoUserFoundError` - user with the supplied parameters (id number, document number, country) does not exist in smart ID system
+
 * `SmartId::SSLCertificateNotVerified` - SSL certificate for smart ID service was not verified. Check for newest version of this gem to always keep cerficates updated
 * `SmartId::InvalidResponseCertificate` - Certificate used in confirmation response is invalid
 * `SmartId::InvalidResponseSignature` - Signature used in confirmation response is invalid.
 * `SmartId::IncorrectAccountLevelError` - User's Smart ID account is below the required level by the authentication request ( "ADVANCED" < "QUALIFIED")
-
+* `SmartId::InvalidPermissionsError` - Relying Party has no permission to issue the request. This may happen when Relying Party has no permission to invoke operations on accounts with ADVANCED certificates.
+* `SmartId::OutdatedApiError` - API used by the gem is outdated, please see if you are running the newest version of the gem
+* `SmartId::SystemUnderMaintenanceError` - Smart ID System is under maintenance, try again later
 
 ## Testing
 Smart ID demo environment has provided some sample values to use when testing applications see [Smart ID WIKI page](https://github.com/SK-EID/smart-id-documentation/wiki/Environment-technical-parameters)
