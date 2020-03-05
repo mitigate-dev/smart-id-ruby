@@ -3,14 +3,15 @@ module SmartId::Api
     class ConfirmationPoller
       BASE_URI = "session/"
 
-      def self.confirm(session_id, authentication_hash)
-        new(session_id, authentication_hash).call
+      def self.confirm(session_id:, authentication_hash:, poll: true)
+        new(session_id, authentication_hash, poll).call
 
       end
 
-      def initialize(session_id, authentication_hash)
+      def initialize(session_id, authentication_hash, poll)
         @session_id = session_id
         @authentication_hash = authentication_hash
+        @poll = poll
       end
 
       def call
@@ -25,7 +26,7 @@ module SmartId::Api
         )
 
         # repeat request if confirmation is still running
-        if response.confirmation_running?
+        if response.confirmation_running? && @poll
           call
         else
           response

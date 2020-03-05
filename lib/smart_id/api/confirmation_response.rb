@@ -10,10 +10,6 @@ module SmartId::Api
       validate!(hashed_data)
     end
 
-    def confirmation_complete?
-      state == COMPLETED_STATE
-    end
-
     def confirmation_running?
       state == RUNNING_STATE
     end

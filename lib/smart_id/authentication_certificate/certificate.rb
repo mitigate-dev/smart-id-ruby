@@ -6,7 +6,7 @@ module SmartId
       end
 
       def content
-        @content ||= Content.new(cert.subject.to_s)
+        @content ||= SmartId::AuthenticationCertificate::Content.new(cert.subject.to_s)
       end
 
       def cert

@@ -1,6 +1,5 @@
 module SmartId
   class Exception < ::Exception; end
-  class InvalidAuthTypeError < Exception; end
   class InvalidParamsError < Exception; end
   class ConnectionError < Exception; end
   class SSLCertificateNotVerified < Exception; end

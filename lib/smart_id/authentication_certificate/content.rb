@@ -25,7 +25,7 @@ module SmartId
         structured_raw_content["OU"]
       end
 
-      def identity_number
+      def serial_number
         structured_raw_content["serialNumber"]
       end
 

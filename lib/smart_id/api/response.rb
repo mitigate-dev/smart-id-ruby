@@ -9,7 +9,7 @@ module SmartId::Api
     end
 
     def verification_code
-      @verification_code ||= SmartId::VerificationCodeCalculator.calculate(@authentication_hash.hashable_data)
+      @verification_code ||= SmartId::VerificationCodeCalculator.calculate(@authentication_hash.calculate_digest)
     end
   end
 end

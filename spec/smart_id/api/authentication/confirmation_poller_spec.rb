@@ -16,7 +16,6 @@ RSpec.describe SmartId::Api::Authentication::ConfirmationPoller do
         response = subject.call
 
         expect(response).to be_a_kind_of(SmartId::Api::ConfirmationResponse)
-        expect(response.confirmation_complete?).to be_truthy
         expect(response.confirmation_running?).to be_falsey
         expect(response.document_number).to eq(user_data)
         expect(response.signature).not_to be_nil

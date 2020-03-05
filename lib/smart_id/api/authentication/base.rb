@@ -16,8 +16,8 @@ module SmartId::Api
       def initialize(**opts)
         @authentication_hash = opts[:authentication_hash]
         @display_text = opts[:display_text]
-        @nonce = opts[:nonce]
         @certificate_level = opts[:certificate_level]
+        @multiple_choice = opts[:multiple_choice]
       end
 
 
@@ -41,8 +41,8 @@ module SmartId::Api
           params.merge!(displayText: @display_text)
         end
 
-        if @nonce
-          params.merge!(nonce: @nonce)
+        if @multiple_choice
+          params.merge!(requestProperties: { vcChoice: @multiple_choice })
         end
 
         params

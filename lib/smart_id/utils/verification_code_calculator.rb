@@ -11,8 +11,7 @@ module SmartId
       #
       # SHA256 is always used here, no matter what was the algorithm used to calculate hash.
 
-      def self.calculate(data)
-        digest = AuthenticationHash.new(data).calculate_digest
+      def self.calculate(digest)
         rightmost_bytes = digest[-2..-1]
         int = rightmost_bytes.unpack('n*')[0]
         paddable_string = (int % 10000).to_s.chars.last(4).join
