@@ -2,6 +2,11 @@
 
 This gem provides a wrapper around [Smart ID API](https://github.com/SK-EID/smart-id-documentation]). All the necessary checks, listed in point 3.5 are implemented. Currently this gem only supports authentication actions.
 
+# TODO
+- [x] Add authentication functionality
+- [] Add Signing functionality (see if possible)
+- [] More test coverage
+ 
 ## Installation
 
 Add this line to your application's Gemfile:
