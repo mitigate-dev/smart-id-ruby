@@ -198,6 +198,9 @@ All exceptions inherit from `SmartId::Exception`
 * `SmartId::InvalidResponseSignature` - Signature used in confirmation response is invalid.
 * `SmartId::IncorrectAccountLevelError` - User's Smart ID account is below the required level by the authentication request ( "ADVANCED" < "QUALIFIED")
 
+
+## Testing
+Smart ID demo environment has provided some sample values to use when testing applications see [Smart ID WIKI page](https://github.com/SK-EID/smart-id-documentation/wiki/Environment-technical-parameters)
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
