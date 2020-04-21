@@ -2,7 +2,6 @@ require "rest-client"
 require "smart_id/exceptions"
 require "smart_id/utils/authentication_hash"
 require "json"
-require 'byebug'
 
 module SmartId::Api
   module Authentication
