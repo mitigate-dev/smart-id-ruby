@@ -33,16 +33,16 @@ module SmartId::Utils
       end
     end
 
-    def cert_chain
-      [
-        OpenSSL::X509::Certificate.new(
-          File.read(File.dirname(__FILE__)+"/../../../trusted_certs/EID-SK_2016.pem.crt")
-        ),
-        OpenSSL::X509::Certificate.new(
-          File.read(File.dirname(__FILE__)+"/../../../trusted_certs/NQ-SK_2016.pem.crt")
-        )
-      ]
-    end
+    # def cert_chain
+    #   [
+    #     OpenSSL::X509::Certificate.new(
+    #       File.read(File.dirname(__FILE__)+"/../../../trusted_certs/EID-SK_2016.pem.crt")
+    #     ),
+    #     OpenSSL::X509::Certificate.new(
+    #       File.read(File.dirname(__FILE__)+"/../../../trusted_certs/NQ-SK_2016.pem.crt")
+    #     )
+    #   ]
+    # end
 
     def validate_signature!
       public_key = @certificate.public_key
