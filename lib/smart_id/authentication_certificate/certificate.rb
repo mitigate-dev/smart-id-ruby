@@ -12,6 +12,12 @@ module SmartId
       def cert
         @cert ||= OpenSSL::X509::Certificate.new(Base64.decode64(@base64_cert))
       end
+
+      def date_of_birth_from_attribute
+        return unless @base64_cert
+
+        @date_of_birth_from_attribute ||= SmartId::AuthenticationCertificate::DateOfBirthFromAttribute.new(cert).value
+      end
     end
   end
 end
