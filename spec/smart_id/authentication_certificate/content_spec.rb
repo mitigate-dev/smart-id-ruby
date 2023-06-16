@@ -8,7 +8,7 @@ RSpec.describe SmartId::AuthenticationCertificate::Content do
       expect(subject.country).to eq("EE")
       expect(subject.surname).to eq("SMART-ID")
       expect(subject.given_name).to eq("DEMO")
-      expect(subject.identity_number).to eq("PNOEE-10101010005")
+      expect(subject.serial_number).to eq("PNOEE-10101010005")
       expect(subject.all_info).to eq("SMART-ID,DEMO,PNOEE-10101010005")
       expect(subject.organizational_unit).to eq("AUTHENTICATION")
     end

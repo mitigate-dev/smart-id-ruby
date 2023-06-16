@@ -16,7 +16,7 @@ module SmartId
         date_of_birth_sequence = sequence.detect { |a| a.value.first&.value == DATE_OF_BIRTH_ATTRIBUTE_NAME }&.value
         return unless date_of_birth_sequence
 
-        birth_time = date_of_birth_sequence.second&.value&.first&.value
+        birth_time = date_of_birth_sequence[1]&.value&.[](0)&.value
         birth_time&.to_date
       end
     end
