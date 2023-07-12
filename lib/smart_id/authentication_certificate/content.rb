@@ -2,7 +2,7 @@ module SmartId
   module AuthenticationCertificate
     class Content
       def initialize(raw_content)
-        @raw_content = raw_content
+        @raw_content = convert_diacritics(raw_content)
       end
 
       def given_name
@@ -12,7 +12,7 @@ module SmartId
       def surname
         structured_raw_content["SN"].gsub(",", " ")
       end
-      
+
       def country
         structured_raw_content["C"].gsub(",", " ")
       end
@@ -30,6 +30,16 @@ module SmartId
       end
 
       private
+
+      # Converts
+      # "J\\xC4\\x81nis B\\xC4\\x93rzi\\xC5\\x86\\xC5\\xA1" (ASCII-8BIT)
+      # to
+      # "Jānis Bērziņš" (UTF-8)
+      def convert_diacritics(text)
+        return text unless text
+
+        text.gsub(/\\x([0-9A-Fa-f]{2})/) { $1.hex.chr }.force_encoding('UTF-8')
+      end
 
       def structured_raw_content
         return @structured_raw_content if @structured_raw_content
