@@ -7,12 +7,13 @@ module SmartId
   class UserNotFoundError < Exception; end
   class OutdatedApiError < Exception; end
   class SystemUnderMaintenanceError < Exception; end
+  class InvalidPermissionsError < Exception; end
 
   class ConnectionError < Exception;
     attr_reader :original_error
     def initialize(original_error)
       @original_error = original_error
-    end 
+    end
   end
 
   class IncorrectAccountLevelError < Exception

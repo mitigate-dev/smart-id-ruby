@@ -168,6 +168,7 @@ confirmation_response.certificate_level #=> certificate level for user - values 
 confirmation_response.certificate.content.given_name #=> given name for user
 confirmation_response.certificate.content.surname #=> surname for user
 confirmation_response.certificate.content.serial_number #=> string, that includes user's national identity number
+confirmation_response.certificate.date_of_birth_from_attribute #=> user's date of birth (available even for users who's latvian identity number starts with 32)
 
 ```
 

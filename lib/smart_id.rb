@@ -8,6 +8,7 @@ require "smart_id/api/confirmation_response"
 require "smart_id/api/authentication/identity_number"
 require "smart_id/api/authentication/document"
 require "smart_id/api/authentication/confirmation_poller"
+require "smart_id/authentication_certificate/date_of_birth_from_attribute"
 require "smart_id/authentication_certificate/certificate"
 require "smart_id/authentication_certificate/content"
 
@@ -15,7 +16,7 @@ module SmartId
     @@environment = "DEMO" # possible options are demo and production
     @@relying_party_uuid = nil
     @@relying_party_name = nil
-    @@default_certificate_level = "ADVANCED" # possible values are "ADVANCED", "QUALIFIED" 
+    @@default_certificate_level = "ADVANCED" # possible values are "ADVANCED", "QUALIFIED"
     @@poller_timeout_seconds = 10
 
   def self.configure(&block)
